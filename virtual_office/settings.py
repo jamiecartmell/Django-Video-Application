@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -21,13 +21,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-d2f0d#df+j69_2j3n#*w74^y76tj21vt4dtg5l0v77yk!3@zsc"
+SECRET_KEY = os.environ.get("django-insecure-d2f0d#df+j69_2j3n#*w74^y76tj21vt4dtg5l0v77yk!3@zsc")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+# DEBUG = os.environ.get("DEBUG", "False").lower() =='true'
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = os.environ.get()
 
+DEBUG = True 
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
+
+# Split the comma-separated string of hosts into a list
+if ALLOWED_HOSTS:
+    ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS.split(",")]
+else:
+    ALLOWED_HOSTS = ["127.0.0.1"]
+
+# Add 'django-workforce.onrender.com' to the list of allowed hosts
+ALLOWED_HOSTS.append("")
 
 # Application definition
 
@@ -76,22 +89,29 @@ WSGI_APPLICATION = "virtual_office.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+DATABASES = {
+    "default": dj_database_url.parse(
+        "postgres://virtual_office_database_user:aCvb7sfYgLaADcm7vhKCeKS8xw7VdCYH@dpg-co027vicn0vc73ca301g-a.frankfurt-postgres.render.com/virtual_office_database"
+    )
+}
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'HOST': 'localhost', 
+#         'PORT': '5432',       
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'localhost', 
-        'PORT': '5432',       
-    }
-}
+#DATABASES["default"] = dj_database_url.parse("postgres://virtual_office_database_user:aCvb7sfYgLaADcm7vhKCeKS8xw7VdCYH@dpg-co027vicn0vc73ca301g-a.frankfurt-postgres.render.com/virtual_office_database")
 
 
 # Password validation
