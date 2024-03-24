@@ -13,13 +13,12 @@
                     <!-- <div class="avatar avatar--small">
                         <img src="{{room.host.avatar.url}}" />
                     </div> -->
-                    <div class="avatar avatar--small ">
+                    <div class="avatar avatar--small">
                         <img src="{% static 'images/avatar.svg' %}" />
                     </div>
                     <span>@{{room.host.username}}</span>
                 </a>
             </div>
-
         </div>
     </div>
 
@@ -34,8 +33,6 @@
 
                 {% if room.host == request.user %}
                 <div class="room__topRight">
-                    <a class="btn btn--main" href="{% url 'group-lobby' %}"></a>
-
                     <a href="{% url 'update-room' room.id %}">
                         <svg enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32"
                             xmlns="http://www.w3.org/2000/svg">
