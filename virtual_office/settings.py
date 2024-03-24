@@ -40,7 +40,7 @@ else:
     ALLOWED_HOSTS = ["127.0.0.1"]
 
 # Add 'django-workforce.onrender.com' to the list of allowed hosts
-ALLOWED_HOSTS.append("")
+ALLOWED_HOSTS.append("django-video-application.onrender.com")
 
 # Application definition
 
