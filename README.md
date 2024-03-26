@@ -1,5 +1,4 @@
 # Django-Video-Application
-Access my project Here: https://django-video-application.onrender.com/
 
 Virtual Office Environment Project README
 Overview
