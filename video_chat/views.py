@@ -8,7 +8,6 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 
 
-# Create your views here.
 def lobby(request):
     return render(request, "base/lobby.html")
 
